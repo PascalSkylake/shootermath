@@ -5,6 +5,7 @@ import java.util.function.Function;
 
 import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.Vector;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.numbers.N4;
 import edu.wpi.first.math.numbers.N5;
 
@@ -13,12 +14,16 @@ import edu.wpi.first.math.numbers.N5;
 public class Shooter {
   Function<Vector<N5>, Vector<N5>> projectileEquation;
 
-  private final double SPEAKER_HEIGHT = 3;
+  private final double SPEAKER_HEIGHT = 1.9812;
   private final double DRAG_COEFFICIENT = 0.5;
   private final double AIR_DENSITY = 1.225;
   private final double CROSS_SECTIONAL_AREA = 0.018;
   private final double NOTE_MASS = 0.2353;
   private final double MU = (DRAG_COEFFICIENT * AIR_DENSITY * CROSS_SECTIONAL_AREA) / (2 * NOTE_MASS);
+
+  private final double SHOOTER_PIVOT_TO_END = 0.37516;
+  private final Translation2d SHOOTER_PIVOT_ROBOT_REL = new Translation2d(-0.2757, 0.5972);
+
 
   public Shooter() {
 
@@ -74,7 +79,7 @@ public class Shooter {
       if (state.get(1, 0) > SPEAKER_HEIGHT) {
         double timeAgo = (state.get(1, 0) - SPEAKER_HEIGHT) / state.get(3, 0);
         double intersectX = state.get(0, 0) - (timeAgo * state.get(2, 0));
-        System.out.println(counter + "," + intersectX);
+        //System.out.println(counter + "," + intersectX);
         return Optional.of(intersectX);
       }
       
@@ -82,4 +87,13 @@ public class Shooter {
 
     return Optional.empty();
   }
+
+  public Translation2d shooterExitRobotRelative(double theta) {
+    double x = SHOOTER_PIVOT_TO_END * Math.cos(theta);
+    double y = SHOOTER_PIVOT_TO_END * Math.sin(theta);
+
+    return SHOOTER_PIVOT_ROBOT_REL.plus(new Translation2d(x, y));
+  }
+
+  
 }

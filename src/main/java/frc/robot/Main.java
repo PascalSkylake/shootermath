@@ -8,6 +8,8 @@ import java.util.Optional;
 
 import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.Vector;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.numbers.N4;
 import edu.wpi.first.wpilibj.RobotBase;
 
@@ -29,13 +31,16 @@ public final class Main {
     // shooter.propagateState(in, 4, 100);
 
     for (double theta = 0; theta < Math.PI / 2; theta += 0.002) {
-      Vector<N4> in = VecBuilder.fill(0, 0.5, 20 * Math.cos(theta), 20 * Math.sin(theta));
+      Translation2d shooterExit = shooter.shooterExitRobotRelative(theta);
+      Vector<N4> in = VecBuilder.fill(shooterExit.getX(), shooterExit.getY(), 20 * Math.cos(theta), 20 * Math.sin(theta));
       Optional<Double> a = shooter.calcTrajectoryIntersectWithSpeakerHeightPlane(in, 0.0001);
 
       if (a.isPresent()) {
-        //System.out.println("" + theta + "," + a.get());
+        System.out.println("" + theta + "," + a.get());
       }
     }
   }
+
+
 
 }
