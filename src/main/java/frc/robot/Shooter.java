@@ -59,7 +59,7 @@ public class Shooter {
     Vector<N5> state = VecBuilder.fill(x.get(0, 0), x.get(1, 0), x.get(2, 0), x.get(3, 0), dt);
     for (int i = 0; i < intervals; i++) {
       state = rkFour(state);
-      //System.out.println("" + (i * dt) + "," + state.get(0, 0) + "," + state.get(1,0) + "," + state.get(2, 0) + "," + state.get(3, 0));
+      System.out.println("" + (i * dt) + "," + state.get(0, 0) + "," + state.get(1,0) + "," + state.get(2, 0) + "," + state.get(3, 0));
       
     }
 
@@ -79,7 +79,7 @@ public class Shooter {
       if (state.get(1, 0) > SPEAKER_HEIGHT) {
         double timeAgo = (state.get(1, 0) - SPEAKER_HEIGHT) / state.get(3, 0);
         double intersectX = state.get(0, 0) - (timeAgo * state.get(2, 0));
-        //System.out.println(counter + "," + intersectX);
+        System.out.println(counter + "," + intersectX);
         return Optional.of(intersectX);
       }
       

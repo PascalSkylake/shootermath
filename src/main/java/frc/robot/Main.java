@@ -29,6 +29,11 @@ public final class Main {
     // Vector<N4> in = VecBuilder.fill(0, 0.5, 20 * Math.cos(Math.PI/6), 20 *
     // Math.sin(Math.PI/6));
     // shooter.propagateState(in, 4, 100);
+    // double theta = 1;
+
+    // Translation2d shooterExit = shooter.shooterExitRobotRelative(theta);
+    // Vector<N4> in = VecBuilder.fill(shooterExit.getX(), shooterExit.getY(), 20 * Math.cos(theta), 20 * Math.sin(theta));
+    // shooter.propagateState(in, 3, 50);
 
     for (double theta = 0; theta < Math.PI / 2; theta += 0.002) {
       Translation2d shooterExit = shooter.shooterExitRobotRelative(theta);
@@ -36,7 +41,7 @@ public final class Main {
       Optional<Double> a = shooter.calcTrajectoryIntersectWithSpeakerHeightPlane(in, 0.0001);
 
       if (a.isPresent()) {
-        System.out.println("" + theta + "," + a.get());
+        //System.out.println("" + theta + "," + a.get());
       }
     }
   }
